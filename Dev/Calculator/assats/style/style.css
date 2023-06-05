@@ -1,5 +1,5 @@
   .container {
-    border: 1px solid #cccccc;
+    border: 3px solid black;
     border-radius: 20px;
     position: absolute;
     top: 50%;
@@ -7,6 +7,7 @@
     transform: translate(-50%, -50%);
     width: 340px;
     height: 450px;
+    padding-left: 20px;
   }
   
   .keys {
@@ -38,23 +39,11 @@
     font-size: 30px;
   }
   
-  .clear {
-    background-color: #f0595f;
-    border-color: #b0353a;
-    color: #fff;
-    width: 90px;
-    height: 30px;
-    margin-left: 20%;
-  }
-  
-  .clear:hover {
-    background-color: #f17377;
-  }
-  
   .equal-sign {
     background-color: #25a8e0;
     border-color: #25a8e0;
     color: black;
+    width: 100%;
   }
   
   .equal-sign:hover {
@@ -66,11 +55,10 @@
     justify-content: right;
     color: black;
     font-size: medium;
-    width: 55%;
+    width: 90%;
     height: 25px;
     cursor: default;
     padding: 10px;
-    padding-right: 40%;
     margin: auto;
     margin-bottom: 10px;
 }
@@ -80,7 +68,28 @@
     width: 75px;
 }
 
-input#showcase {
-    margin-left: 5%;
+input#ce-button {
+  height: 60px;
+  width: 75px;
+  background-color: deepskyblue;
+  border-radius: 5px;
+  color: black;
+}
+
+input#ce-button:hover {
+  background-color: #4e9ed4;
+  color: black;
+}
+
+input#clear-button {
+  height: 60px;
+  width: 75px;
+  background-color: deepskyblue;
+  color: black;
+}
+
+input#clear-button:hover {
+  background-color: #4e9ed4;
+  color: black;
 }
 
