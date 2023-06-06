@@ -5,11 +5,12 @@ function display(value) {
 
     if (/\d/.test(value)) {
         appendToShowcase(value);
-    } else if (
-        ["+", "-", "*", "/", "%"].includes(value) &&
-        lastChar.trim() !== ""
-    ) {
-        appendToShowcase(` ${value} `);
+    } else if (["+", "-", "*", "/", "%"].includes(value)) {
+        if (lastChar.trim() !== "") {
+            showcase.value += " " + value + " ";
+        } else if (lastChar === " ") {
+            showcase.value = showcase.value.slice(0, -2) + value + " ";
+        }
     } else if (value === "." && !getLastNumber(showcase.value).includes(".")) {
         appendToShowcase(value);
     } else if (value === "+/-") {
@@ -27,7 +28,7 @@ function display(value) {
             showcase.value = `-${currentValue}`;
         }
     } else if (value === "CE") {
-        removeLastCharacter();
+        clearEntry();
     }
 }
 
@@ -49,6 +50,17 @@ function calculate() {
 
 function clearScreen() {
     showcase.value = "";
+}
+
+function clearEntry() {
+    const input = showcase;
+    const currentValue = input.value;
+
+    if (currentValue.length > 0) {
+        input.value = currentValue.slice(0, -1);
+    }
+
+    input.focus();
 }
 
 function evaluateExpression(expression) {
@@ -123,7 +135,10 @@ function handleKeyDown(event) {
     } else if (
         allowedKeysRegex.test(keyPressed) &&
         (["+",
-                "-", "*", "/", "%"
+                "-",
+                "*",
+                "/",
+                "%"
             ].includes(keyPressed) ||
             keyPressed === "." ||
             /\d/.test(keyPressed))
@@ -163,10 +178,11 @@ function handlePaste(event) {
                 selectionStart + pastedText.length
             );
 
-            event.preventDefault();
-        } else {
-            event.preventDefault();
+            // Automatically evaluate the pasted expression and display the result
+            showcase.value = evaluateExpression(newValue);
         }
+
+        event.preventDefault();
     }
 }
 
@@ -174,4 +190,7 @@ showcase.addEventListener("keydown", handleKeyDown);
 showcase.addEventListener("paste", handlePaste);
 document.getElementById("equals-button").addEventListener("click", calculate);
 document.getElementById("clear-button").addEventListener("click", clearScreen);
-document.getElementById("ce-button").addEventListener("click", removeLastCharacter);
+document.getElementById("ce-button").addEventListener("click", clearEntry);
+
+
+
